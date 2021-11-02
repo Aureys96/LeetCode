@@ -1,3 +1,7 @@
+/**
+ * Task stated that the input array will be in a 'non-decreasing order'. That fact I completely ignored and
+ * created a solution for random-order array, which works, presumably, with O(n^2) complexity and not O(n).
+ */
 public class RemoveDuplicatedInPlace {
 
     public static void main(String[] args) {
