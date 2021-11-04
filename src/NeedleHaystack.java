@@ -1,10 +1,11 @@
 public class NeedleHaystack {
 
     public static void main(String[] args) {
-        System.out.println(new NeedleHaystack().strStr("hello", "ll")); //2
-        System.out.println(new NeedleHaystack().strStr("aaaaa", "bba")); //-1
-        System.out.println(new NeedleHaystack().strStr("aaa", "aaaa")); //-1
-        System.out.println(new NeedleHaystack().strStr("mississippi", "issip")); //4
+        //System.out.println(new NeedleHaystack().strStrKMP("hello", "ll")); //2
+        //System.out.println(new NeedleHaystack().strStr("aaaaa", "bba")); //-1
+        //System.out.println(new NeedleHaystack().strStr("aaa", "aaaa")); //-1
+        //System.out.println(new NeedleHaystack().strStrKMP("mississippi", "issip")); //4
+        System.out.println(new NeedleHaystack().strStrKMP("abcadcabcabdabcabc", "abcabc")); //4
     }
 
     public int strStr(String haystack, String needle) {
@@ -38,5 +39,23 @@ public class NeedleHaystack {
         }
 
         return j != needleChar.length ? -1 : p;
+    }
+
+    public int strStrKMP(String haystack, String needle) {
+        if (needle.length() == 0) return 0;
+        if (needle.length() > haystack.length()) return -1;
+        char[] ndl = needle.toCharArray();
+        char[] hay = haystack.toCharArray();
+        int[] pai = new int[ndl.length];
+        pai[0] = -1;
+        for (int i = 1, k = -1; i < ndl.length; i++) {
+            while (k > -1 && ndl[k + 1] != ndl[i]) k = pai[k];
+            pai[i] = ndl[k + 1] == ndl[i] ? ++k : k;
+        }
+        for (int i = 0, k = -1; i < hay.length; i++) {
+            while (k > -1 && ndl[k + 1] != hay[i]) k = pai[k];
+            if (ndl[k + 1] == hay[i] && ++k == ndl.length - 1) return i - k;
+        }
+        return -1;
     }
 }
