@@ -3,10 +3,13 @@ import helpers.TreeNode;
 public class SortedArrayToBTS {
 
     public static void main(String[] args) {
-        System.out.println(new SortedArrayToBTS().sortedArrayToBST(new int[]{0,1,2,3,4,5}));
+        System.out.println(new SortedArrayToBTS().sortedArrayToBST(new int[]{-10,-3,0,5,9}));
     }
 
-    public TreeNode sortedArrayToBST(int[] nums) {
+    /**
+     * Technically it is a correct implementation if described by task, but in gist it just builds linkedList.
+     */
+    public TreeNode sortedArrayToBST2(int[] nums) {
         if (nums.length == 1) {
             return new TreeNode(nums[0]);
         }
@@ -25,4 +28,25 @@ public class SortedArrayToBTS {
 
         return root;
     }
+
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if (nums.length == 1) {
+            return new TreeNode(nums[0]);
+        }
+        return buildTree(nums, 0, nums.length - 1);
+    }
+
+    private TreeNode buildTree(int[] nums, int l, int r) {
+        if (l > r)
+            return null;
+
+        int mid = l + (r - l) / 2;
+
+        TreeNode node = new TreeNode(nums[mid]);
+        node.right = buildTree(nums, mid + 1, r);
+        node.left = buildTree(nums, l, mid - 1);
+
+        return node;
+    }
+
 }
