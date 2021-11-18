@@ -1,3 +1,5 @@
+import helpers.ListNode;
+
 public class LinkedListCycle {
     public boolean hasCycle(ListNode head) {
         if (head == null)
@@ -17,13 +19,4 @@ public class LinkedListCycle {
         return false;
     }
 
-    private static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-    }
 }
